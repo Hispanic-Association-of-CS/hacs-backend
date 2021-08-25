@@ -1,13 +1,14 @@
 // login.controller.js - Login logic module
 
-const { ValidationError } = require("joi");
-const { firebase, firebaseAuthWrap } = require("../config/firebase");
+const { firebase } = require("../config/firebase");
 
 module.exports = {
-  login,
+  signout,
 };
 
-async function login(authorization) {
+async function signout(authorization) {
+  await firebaseAuthWrap(firebase.auth.signout);
+
   let loginData = Buffer.from(authorization.split(" ")[1], "base64").toString();
   loginData = loginData.split(":");
 
@@ -20,16 +21,6 @@ async function login(authorization) {
   );
 
   return {
-    token: onLogin(user)
+    token: onLogin(user),
   };
-}
-
-function onLogin(user) {
-  const token = user.getIdToken;
-  storeUserToken(token);
-  return token;
-}
-
-function storeUserToken(token) {
-  throw new ValidationError;
 }

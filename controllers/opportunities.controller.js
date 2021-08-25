@@ -1,8 +1,9 @@
-// siteContent.controller.js - Site content logic module
+// opportunities.controller.js - Opportunities logic module
 
-// const model = require("../models/siteContent.model");
+// const model = require("../models/opportunities.model");
+const { checkAuth } = require("../auth/auth");
 const { makeError } = require("../config/errors");
-const { adminDB } = require("../config/firebase");
+const { adminDB, db, firebase, firebaseAdmin } = require("../config/firebase");
 const { isEmpty } = require("../util/util");
 
 module.exports = {
@@ -10,9 +11,9 @@ module.exports = {
   insert,
 };
 
-async function read() {
+async function read(path) {
   let data = adminDB
-    .ref("siteContent")
+    .ref(`opportunities${path}`)
     .once("value", (snapshot) => {
       return snapshot.val();
     })
@@ -28,12 +29,12 @@ async function read() {
 }
 
 // Set new data for db collection "siteContent"
-async function insert(body) {
+async function insert(path, body) {
   adminDB
-    .ref("siteContent")
-    .set(body, (error) => {
-      if (error) {
-        console.info(error);
-      }
-    })
+    .ref(`opportunities`)
+    .child(path)
+    .set(body)
+    .catch((err) => {
+      console.info(err);
+    });
 }
