@@ -23,6 +23,10 @@ router.get("/health-check", (req, res) => {
   res.send("Health check OK!!!");
 });
 
+router.get("/favicon.ico", function (req, res) {
+  res.sendStatus(204);
+});
+
 router.get("/", (req, res) => {
   res.send("Welcome to the HACS API!");
 });
