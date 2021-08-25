@@ -8,11 +8,12 @@ require("firebase/database");
 
 // admin config
 const firebaseAdmin = require("firebase-admin");
-const firebaseServiceAccount = require("../hacs-firestore-service-account-key.private.json");
+
 adminConfig = {
-  ...firebaseConfig,
-  credential: firebaseAdmin.credential.cert(firebaseServiceAccount),
+  credential: firebaseAdmin.credential.cert(firebaseConfig.credential),
+  databaseURL: firebaseConfig.databaseURL,
 };
+
 firebaseAdmin.initializeApp(adminConfig);
 const adminDB = firebaseAdmin.database();
 
