@@ -29,11 +29,9 @@ async function read() {
 
 // Set new data for db collection "siteContent"
 async function insert(body) {
-  adminDB
-    .ref("siteContent")
-    .set(body, (error) => {
-      if (error) {
-        console.info(error);
-      }
-    })
+  adminDB.ref("siteContent").set(body, (error) => {
+    if (error) {
+      console.info(error);
+    }
+  });
 }
