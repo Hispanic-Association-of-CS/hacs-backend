@@ -12,10 +12,12 @@ const firebaseAdmin = require("firebase-admin");
 adminConfig = {
   credential: firebaseAdmin.credential.cert(firebaseConfig.credential),
   databaseURL: firebaseConfig.databaseURL,
+  storageBucket: firebaseConfig.storageBucket,
 };
 
 firebaseAdmin.initializeApp(adminConfig);
 const adminDB = firebaseAdmin.database();
+const adminStorage = firebaseAdmin.storage();
 
 // regular config
 firebase.initializeApp(firebaseConfig);
@@ -43,4 +45,5 @@ module.exports = {
   firebaseAdmin,
   firebaseAuthWrap,
   adminDB,
+  adminStorage,
 };

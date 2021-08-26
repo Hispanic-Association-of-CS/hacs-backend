@@ -23,6 +23,12 @@ const envVarsSchema = Joi.object({
   FIREBASE_PRIVATE_KEY: Joi.string()
     .required()
     .description("Private key to restrict access to our firebase service"),
+  FIREBASE_DATABASE_URL: Joi.string()
+    .required()
+    .description("Access URL to our firebase realtime database"),
+  FIREBASE_STORAGE_BUCKET: Joi.string()
+    .required()
+    .description("Access to our firebase storage bucket"),
 })
   .unknown()
   .required();
@@ -44,6 +50,7 @@ const config = {
       privateKey: envVars.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
     },
     databaseURL: envVars.FIREBASE_DATABASE_URL,
+    storageBucket: envVars.FIREBASE_STORAGE_BUCKET,
   },
 };
 
