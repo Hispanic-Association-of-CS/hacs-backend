@@ -13,7 +13,7 @@ module.exports = {
 
 async function read(path) {
   let data = adminDB
-    .ref(`opportunities${path}`)
+    .ref(`master/opportunities${path}`)
     .once("value", (snapshot) => {
       return snapshot.val();
     })
@@ -31,7 +31,7 @@ async function read(path) {
 // Set new data for db collection "siteContent"
 async function insert(path, body) {
   adminDB
-    .ref(`opportunities`)
+    .ref(`master/opportunities`)
     .child(path)
     .set(body)
     .catch((err) => {

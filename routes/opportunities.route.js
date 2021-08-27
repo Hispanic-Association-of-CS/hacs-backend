@@ -14,17 +14,10 @@ module.exports = router;
 const validateRequest = SchemaValidator(config.env === "dev");
 
 router.get("/", asyncHandler(getOpportunitiesData));
+router.post("/", validateRequest, asyncHandler(insertOpportunitiesData));
 
-router.post(
-  "/events",
-  validateRequest,
-  asyncHandler(insertOpportunitiesData)
-);
-router.post(
-  "/jobs",
-  validateRequest,
-  asyncHandler(insertOpportunitiesData)
-);
+router.post("/events", validateRequest, asyncHandler(insertOpportunitiesData));
+router.post("/jobs", validateRequest, asyncHandler(insertOpportunitiesData));
 router.post(
   "/scholarships",
   validateRequest,

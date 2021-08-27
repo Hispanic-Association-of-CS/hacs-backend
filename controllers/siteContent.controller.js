@@ -12,7 +12,7 @@ module.exports = {
 
 async function read() {
   let data = adminDB
-    .ref("siteContent")
+    .ref("master/siteContent")
     .once("value", (snapshot) => {
       return snapshot.val();
     })
@@ -29,7 +29,7 @@ async function read() {
 
 // Set new data for db collection "siteContent"
 async function insert(body) {
-  adminDB.ref("siteContent").set(body, (error) => {
+  adminDB.ref("master/siteContent").set(body, (error) => {
     if (error) {
       console.info(error);
     }
