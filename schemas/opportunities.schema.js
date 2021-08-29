@@ -1,5 +1,6 @@
 // opportunities.schema.js - Opportunities data schemas module
 
+const config = require("../config/config")
 const Joi = require("joi");
 
 const eventDataSchema = Joi.object().pattern(/.*/, [
@@ -53,10 +54,10 @@ const scholarshipDataSchema = Joi.object().pattern(/.*/, [
 ]);
 
 module.exports = {
-  "/opportunities/events": eventDataSchema,
-  "/opportunities/jobs": jobListingDataSchema,
-  "/opportunities/scholarships": scholarshipDataSchema,
-  "/opportunities": Joi.object({
+  [`${config.apiUrl}/opportunities/events`]: eventDataSchema,
+  [`${config.apiUrl}/opportunities/jobs`]: jobListingDataSchema,
+  [`${config.apiUrl}/opportunities/scholarships`]: scholarshipDataSchema,
+  [`${config.apiUrl}/opportunities`]: Joi.object({
     events: eventDataSchema,
     jobs: jobListingDataSchema,
     scholarships: scholarshipDataSchema,

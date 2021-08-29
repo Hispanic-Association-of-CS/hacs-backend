@@ -1,9 +1,8 @@
 // opportunities.controller.js - Opportunities logic module
 
 // const model = require("../models/opportunities.model");
-const { checkAuth } = require("../auth/auth");
 const { makeError } = require("../config/errors");
-const { adminDB, db, firebase, firebaseAdmin } = require("../config/firebase");
+const { adminDB } = require("../config/firebase");
 const { isEmpty } = require("../util/util");
 
 module.exports = {

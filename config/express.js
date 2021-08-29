@@ -21,6 +21,13 @@ const app = express();
 // Set logger to dev mode
 app.use(logger);
 
+// Enable CORS - Cross Origin Resource Sharing
+app.use(
+  cors({
+    origin: ["https://texashacs.org", "http://localhost:3000"],
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,18 +38,15 @@ app.use(express.urlencoded({ extended: true }));
 // Secure apps by setting various HTTP headers
 // app.use(helmet());
 
-// Enable CORS - Cross Origin Resource Sharing
-app.use(cors());
-
 // app.use(passport.initialize());
 
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // API router (routes beginning with "/api")
-app.use("/api", routes);
+app.use(config.apiUrl, routes);
 
 // Base backend route response
-app.get("/", (req, res) => {
+app.get(config.backendUrl, (req, res) => {
   res.send("Welcome to the HACS backend!");
 });
 

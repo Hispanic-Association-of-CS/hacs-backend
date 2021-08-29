@@ -14,13 +14,14 @@ module.exports = router;
 const validateRequest = SchemaValidator(config.env === "dev");
 
 router.get("/", asyncHandler(getOpportunitiesData));
-router.post("/", validateRequest, asyncHandler(insertOpportunitiesData));
+router.post("/", validateRequest, checkAuth, asyncHandler(insertOpportunitiesData));
 
-router.post("/events", validateRequest, asyncHandler(insertOpportunitiesData));
-router.post("/jobs", validateRequest, asyncHandler(insertOpportunitiesData));
+router.post("/events", validateRequest, checkAuth, asyncHandler(insertOpportunitiesData));
+router.post("/jobs", validateRequest, checkAuth, asyncHandler(insertOpportunitiesData));
 router.post(
   "/scholarships",
   validateRequest,
+  checkAuth,
   asyncHandler(insertOpportunitiesData)
 );
 
@@ -41,10 +42,7 @@ async function getOpportunitiesData(req, res, next) {
 async function insertOpportunitiesData(req, res, next) {
   try {
     await opportunitiesCtrl.insert(req.route.path, req.body);
-    res.json({
-      status: CODES.SUCCESS.OK,
-      data: req.body,
-    });
+    res.sendStatus(CODES.SUCCESS.OK);
   } catch (e) {
     if (config.env !== "dev") {
       e.message =

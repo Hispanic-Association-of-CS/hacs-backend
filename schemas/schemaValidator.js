@@ -46,6 +46,13 @@ module.exports = (useJoiError = false) => {
           next();
         }
       }
+    } else {
+      next(
+        makeError(
+          "Invalid request could not be validated.",
+          CODES.CLIENT_ERROR.BAD_REQUEST
+        )
+      );
     }
   };
 };

@@ -52,6 +52,8 @@ const config = {
     databaseURL: envVars.FIREBASE_DATABASE_URL,
     storageBucket: envVars.FIREBASE_STORAGE_BUCKET,
   },
+  backendUrl: "/",
+  apiUrl: "/api",
 };
 
 module.exports = config;

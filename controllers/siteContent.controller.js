@@ -2,7 +2,7 @@
 
 // const model = require("../models/siteContent.model");
 const { makeError } = require("../config/errors");
-const { adminDB, adminStorage } = require("../config/firebase");
+const { adminDB } = require("../config/firebase");
 const { isEmpty } = require("../util/util");
 
 module.exports = {
