@@ -24,7 +24,7 @@ app.use(logger);
 // Enable CORS - Cross Origin Resource Sharing
 app.use(
   cors({
-    origin: ["https://texashacs.org", "http://localhost:3000"],
+    origin: ["https://texashacs.org", "http://localhost:3000", new RegExp(config.corsRegex)],
   })
 );
 
