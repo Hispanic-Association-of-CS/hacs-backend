@@ -1,6 +1,6 @@
 // opportunities.schema.js - Opportunities data schemas module
 
-const config = require("../config/config")
+const config = require("../config/config");
 const Joi = require("joi");
 
 const eventDataSchema = Joi.object().pattern(/.*/, [
@@ -8,7 +8,7 @@ const eventDataSchema = Joi.object().pattern(/.*/, [
     title: Joi.string().required(),
     startTime: Joi.string().isoDate().allow(null),
     endTime: Joi.string().isoDate().allow(null),
-    img: Joi.string().allow(null),
+    imageUrl: Joi.string().allow(null),
     meetingLink: Joi.string().allow(null),
     rsvpLink: Joi.string().allow(null),
     location: Joi.string().allow(null),
@@ -28,7 +28,7 @@ const jobListingDataSchema = Joi.object().pattern(/.*/, [
       openDate: Joi.string().isoDate().allow(null),
       closeDate: Joi.string().isoDate().allow(null),
     }),
-    img: Joi.string().allow(null),
+    imgUrl: Joi.string().allow(null),
     link: Joi.string().allow(null),
     description: Joi.string().allow(null),
     otherLinks: Joi.object({
@@ -45,7 +45,7 @@ const scholarshipDataSchema = Joi.object().pattern(/.*/, [
       openDate: Joi.string().isoDate().allow(null),
       closeDate: Joi.string().isoDate().allow(null),
     }),
-    img: Joi.string().allow(null),
+    imgUrl: Joi.string().allow(null),
     link: Joi.string().allow(null),
     description: Joi.string().allow(null),
     otherLinks: Joi.object().unknown(),
