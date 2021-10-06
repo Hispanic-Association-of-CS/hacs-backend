@@ -11,7 +11,7 @@ module.exports = {
 
 async function read(path, firebaseAdmin) {
   let data = firebaseAdmin.adminDB
-    .ref(`master/opportunities${path}`)
+    .ref(`opportunities${path}`)
     .once("value", (snapshot) => {
       return snapshot.val();
     })
@@ -29,7 +29,7 @@ async function read(path, firebaseAdmin) {
 // Set new data for db collection "siteContent"
 async function insert(path, body, firebaseAdmin) {
   firebaseAdmin.adminDB
-    .ref(`master/opportunities`)
+    .ref(`opportunities`)
     .child(path)
     .set(body)
     .catch((err) => {
