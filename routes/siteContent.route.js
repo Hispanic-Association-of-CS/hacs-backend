@@ -15,7 +15,7 @@ router.post("/", checkAuth, asyncHandler(insertSiteContentData));
 
 async function getSiteContentData(req, res, next) {
   try {
-    let siteContentData = await siteContentCtrl.read();
+    let siteContentData = await siteContentCtrl.read(res.locals.firebaseAdmin);
     console.info("Retrieved site content data...\n");
     res.json(siteContentData);
   } catch (e) {
@@ -29,7 +29,7 @@ async function getSiteContentData(req, res, next) {
 
 async function insertSiteContentData(req, res, next) {
   try {
-    await siteContentCtrl.insert(req.body);
+    await siteContentCtrl.insert(req.body, res.locals.firebaseAdmin);
     res.sendStatus(CODES.SUCCESS.OK);
   } catch (e) {
     if (config.env !== "dev") {

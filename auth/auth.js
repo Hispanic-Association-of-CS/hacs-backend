@@ -1,11 +1,10 @@
 // auth.js - Authentication logic module
-const { firebaseAdmin } = require("../config/firebase");
 
 module.exports = { checkAuth };
 
 function checkAuth(req, res, next) {
   if (req.headers.authorization) {
-    firebaseAdmin
+    res.locals.firebaseAdmin.firebaseAdmin
       .auth()
       .verifyIdToken(req.headers.authorization)
       .then(() => {

@@ -1,9 +1,12 @@
 // firebase.js - Firebase config module
 
-const firebaseConfig = require("./config").firebase;
+const config = require("./config");
 const firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/database");
+
+firebaseConfig = config.firebase;
+devFirebaseConfig = config.firebaseDev;
 
 // admin config
 const firebaseAdmin = require("firebase-admin");
@@ -14,9 +17,19 @@ adminConfig = {
   storageBucket: firebaseConfig.storageBucket,
 };
 
-firebaseAdmin.initializeApp(adminConfig);
-const adminDB = firebaseAdmin.database();
-const adminStorage = firebaseAdmin.storage();
+devAdminConfig = {
+  credential: firebaseAdmin.credential.cert(devFirebaseConfig.credential),
+  databaseURL: devFirebaseConfig.databaseURL,
+  storageBucket: devFirebaseConfig.storageBucket,
+};
+
+prodFirebaseAdmin = firebaseAdmin.initializeApp(adminConfig, "prod");
+const adminDB = prodFirebaseAdmin.database();
+const adminStorage = prodFirebaseAdmin.storage();
+
+devFirebaseAdmin = firebaseAdmin.initializeApp(devAdminConfig, "dev");
+const devAdminDB = devFirebaseAdmin.database();
+const devAdminStorage = devFirebaseAdmin.storage();
 
 // regular config
 firebase.initializeApp(firebaseConfig);
@@ -41,8 +54,15 @@ const firebaseAuthWrap = async (promise) => {
 module.exports = {
   db,
   firebase,
-  firebaseAdmin,
   firebaseAuthWrap,
-  adminDB,
-  adminStorage,
+  prodFirebaseAdmin: {
+    firebaseAdmin,
+    adminDB,
+    adminStorage,
+  },
+  devFirebaseAdmin: {
+    firebaseAdmin: devFirebaseAdmin,
+    adminDB: devAdminDB,
+    adminStorage: devAdminStorage,
+  },
 };

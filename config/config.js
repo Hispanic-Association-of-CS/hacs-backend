@@ -29,9 +29,27 @@ const envVarsSchema = Joi.object({
   FIREBASE_STORAGE_BUCKET: Joi.string()
     .required()
     .description("Access to our firebase storage bucket"),
-  CORS_REGEX: Joi.string()
+  // DEV FIREBASE
+  DEV_FIREBASE_PROJECT_ID: Joi.string()
     .required()
-    .description("Enables CORS for firebase preview channels"),
+    .description(
+      "Project ID identifying our dev database project within Firebase"
+    ),
+  DEV_FIREBASE_CLIENT_EMAIL: Joi.string()
+    .required()
+    .description("Email associated with our firebase dev account"),
+  DEV_FIREBASE_PRIVATE_KEY: Joi.string()
+    .required()
+    .description("Private key to restrict access to our firebase dev service"),
+  DEV_FIREBASE_DATABASE_URL: Joi.string()
+    .required()
+    .description("Access URL to our firebase dev realtime database"),
+  DEV_FIREBASE_STORAGE_BUCKET: Joi.string()
+    .required()
+    .description("Access to our firebase dev storage bucket"),
+  CORS_DEV_REGEX: Joi.string()
+    .required()
+    .description("Enables CORS for firebase preview and dev channels"),
 })
   .unknown()
   .required();
@@ -55,9 +73,19 @@ const config = {
     databaseURL: envVars.FIREBASE_DATABASE_URL,
     storageBucket: envVars.FIREBASE_STORAGE_BUCKET,
   },
-  corsRegex: envVars.CORS_REGEX,
+  firebaseDev: {
+    credential: {
+      projectId: envVars.DEV_FIREBASE_PROJECT_ID,
+      clientEmail: envVars.DEV_FIREBASE_CLIENT_EMAIL,
+      privateKey: envVars.DEV_FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    },
+    databaseURL: envVars.DEV_FIREBASE_DATABASE_URL,
+    storageBucket: envVars.DEV_FIREBASE_STORAGE_BUCKET,
+  },
+  corsDevRegex: envVars.CORS_DEV_REGEX,
   backendUrl: "/",
-  apiUrl: "/api",  
+  apiUrl: "/api",
+  devApiUrl: "/dev-api",
 };
 
 module.exports = config;

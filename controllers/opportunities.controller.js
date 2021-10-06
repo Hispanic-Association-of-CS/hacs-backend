@@ -2,7 +2,6 @@
 
 // const model = require("../models/opportunities.model");
 const { makeError } = require("../config/errors");
-const { adminDB } = require("../config/firebase");
 const { isEmpty } = require("../util/util");
 
 module.exports = {
@@ -10,8 +9,8 @@ module.exports = {
   insert,
 };
 
-async function read(path) {
-  let data = adminDB
+async function read(path, firebaseAdmin) {
+  let data = firebaseAdmin.adminDB
     .ref(`master/opportunities${path}`)
     .once("value", (snapshot) => {
       return snapshot.val();
@@ -28,8 +27,8 @@ async function read(path) {
 }
 
 // Set new data for db collection "siteContent"
-async function insert(path, body) {
-  adminDB
+async function insert(path, body, firebaseAdmin) {
+  firebaseAdmin.adminDB
     .ref(`master/opportunities`)
     .child(path)
     .set(body)

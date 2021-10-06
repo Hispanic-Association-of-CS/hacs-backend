@@ -14,10 +14,25 @@ module.exports = router;
 const validateRequest = SchemaValidator(config.env === "dev");
 
 router.get("/", asyncHandler(getOpportunitiesData));
-router.post("/", validateRequest, checkAuth, asyncHandler(insertOpportunitiesData));
+router.post(
+  "/",
+  validateRequest,
+  checkAuth,
+  asyncHandler(insertOpportunitiesData)
+);
 
-router.post("/events", validateRequest, checkAuth, asyncHandler(insertOpportunitiesData));
-router.post("/jobs", validateRequest, checkAuth, asyncHandler(insertOpportunitiesData));
+router.post(
+  "/events",
+  validateRequest,
+  checkAuth,
+  asyncHandler(insertOpportunitiesData)
+);
+router.post(
+  "/jobs",
+  validateRequest,
+  checkAuth,
+  asyncHandler(insertOpportunitiesData)
+);
 router.post(
   "/scholarships",
   validateRequest,
@@ -27,7 +42,10 @@ router.post(
 
 async function getOpportunitiesData(req, res, next) {
   try {
-    let opportunitiesData = await opportunitiesCtrl.read(req.route.path);
+    let opportunitiesData = await opportunitiesCtrl.read(
+      req.route.path,
+      res.locals.firebaseAdmin
+    );
     console.info("Retrieved opportunities data...\n");
     res.json(opportunitiesData);
   } catch (e) {
@@ -41,7 +59,11 @@ async function getOpportunitiesData(req, res, next) {
 
 async function insertOpportunitiesData(req, res, next) {
   try {
-    await opportunitiesCtrl.insert(req.route.path, req.body);
+    await opportunitiesCtrl.insert(
+      req.route.path,
+      req.body,
+      res.locals.firebaseAdmin
+    );
     res.sendStatus(CODES.SUCCESS.OK);
   } catch (e) {
     if (config.env !== "dev") {

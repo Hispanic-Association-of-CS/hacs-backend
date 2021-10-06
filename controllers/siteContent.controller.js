@@ -2,7 +2,6 @@
 
 // const model = require("../models/siteContent.model");
 const { makeError } = require("../config/errors");
-const { adminDB } = require("../config/firebase");
 const { isEmpty } = require("../util/util");
 
 module.exports = {
@@ -10,8 +9,8 @@ module.exports = {
   insert,
 };
 
-async function read() {
-  let data = adminDB
+async function read(firebaseAdmin) {
+  let data = firebaseAdmin.adminDB
     .ref("master/siteContent")
     .once("value", (snapshot) => {
       return snapshot.val();
@@ -28,8 +27,8 @@ async function read() {
 }
 
 // Set new data for db collection "siteContent"
-async function insert(body) {
-  adminDB.ref("master/siteContent").set(body, (error) => {
+async function insert(body, firebaseAdmin) {
+  firebaseAdmin.adminDB.ref("master/siteContent").set(body, (error) => {
     if (error) {
       console.info(error);
     }

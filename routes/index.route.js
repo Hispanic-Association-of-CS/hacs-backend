@@ -9,10 +9,11 @@ const calendarRoutes = require("./calendar.route");
 const loginRoutes = require("./login.route");
 const signoutRoutes = require("./signout.route");
 const opportunitiesRoutes = require("./opportunities.route");
-const { firebaseAdmin } = require("../config/firebase");
+const { prodFirebaseAdmin, devFirebaseAdmin } = require("../config/firebase");
 
 const router = express.Router();
 
+router.use(/^\/(.*)/, handleAccessLevel);
 router.use("/siteContent", siteContentRoutes);
 router.use("/calendar", calendarRoutes);
 router.use("/login", loginRoutes);
@@ -30,5 +31,11 @@ router.get("/favicon.ico", function (req, res) {
 router.get("/", (req, res) => {
   res.send("Welcome to the HACS API!");
 });
+
+function handleAccessLevel(req, res, next) {
+  let prodAccess = req.get("origin") === "https://texashacs.org";
+  res.locals.firebaseAdmin = prodAccess ? prodFirebaseAdmin : devFirebaseAdmin;
+  next();
+}
 
 module.exports = router;

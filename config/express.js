@@ -24,7 +24,11 @@ app.use(logger);
 // Enable CORS - Cross Origin Resource Sharing
 app.use(
   cors({
-    origin: ["https://texashacs.org", "http://localhost:3000", new RegExp(config.corsRegex)],
+    origin: [
+      "https://texashacs.org",
+      "http://localhost:3000",
+      new RegExp(config.corsDevRegex),
+    ],
   })
 );
 
@@ -43,6 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // API router (routes beginning with "/api")
+app.use(config.devApiUrl, routes);
 app.use(config.apiUrl, routes);
 
 // Base backend route response
