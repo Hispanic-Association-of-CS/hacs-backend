@@ -22,16 +22,16 @@ const app = express();
 app.use(logger);
 
 // Enable CORS - Cross Origin Resource Sharing
-app.use(
-  cors({
-    origin: [
-      "https://texashacs.org",
-      "http://localhost:3000",
-      new RegExp(config.corsRegex),
-      new RegExp(config.corsDevRegex),
-    ],
-  })
-);
+var allowlist = [
+  "https://texashacs.org",
+  "http://localhost:3000",
+  new RegExp(config.corsRegex),
+  new RegExp(config.corsDevRegex),
+];
+var corsOptions = {
+  origin: allowlist,
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
