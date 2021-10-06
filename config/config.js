@@ -47,9 +47,12 @@ const envVarsSchema = Joi.object({
   DEV_FIREBASE_STORAGE_BUCKET: Joi.string()
     .required()
     .description("Access to our firebase dev storage bucket"),
+  CORS_REGEX: Joi.string()
+    .required()
+    .description("Enables CORS for firebase preview and hosting channels"),
   CORS_DEV_REGEX: Joi.string()
     .required()
-    .description("Enables CORS for firebase preview and dev channels"),
+    .description("Enables CORS for dev firebase preview and hosting channels"),
 })
   .unknown()
   .required();
@@ -82,6 +85,7 @@ const config = {
     databaseURL: envVars.DEV_FIREBASE_DATABASE_URL,
     storageBucket: envVars.DEV_FIREBASE_STORAGE_BUCKET,
   },
+  corsRegex: envVars.CORS_REGEX,
   corsDevRegex: envVars.CORS_DEV_REGEX,
   backendUrl: "/",
   apiUrl: "/api",

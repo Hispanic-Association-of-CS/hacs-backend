@@ -27,6 +27,7 @@ app.use(
     origin: [
       "https://texashacs.org",
       "http://localhost:3000",
+      new RegExp(config.corsRegex),
       new RegExp(config.corsDevRegex),
     ],
   })
