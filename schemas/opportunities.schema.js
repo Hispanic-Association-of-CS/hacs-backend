@@ -16,7 +16,7 @@ const eventDataSchema = Joi.object().pattern(/.*/, [
     otherLinks: Joi.object({
       flyerLink: Joi.string().allow(null),
       jobListing: Joi.string().allow(null),
-    }).unknown(),
+    }).unknown().allow(null),
     uid: Joi.string().required(),
   }),
 ]);
@@ -33,7 +33,7 @@ const jobListingDataSchema = Joi.object().pattern(/.*/, [
     description: Joi.string().allow(null),
     otherLinks: Joi.object({
       flyerLink: Joi.string().allow(null),
-    }).unknown(),
+    }).unknown().allow(null),
     uid: Joi.string().required(),
   }),
 ]);
@@ -48,7 +48,7 @@ const scholarshipDataSchema = Joi.object().pattern(/.*/, [
     imgUrl: Joi.string().allow(null),
     link: Joi.string().allow(null),
     description: Joi.string().allow(null),
-    otherLinks: Joi.object().unknown(),
+    otherLinks: Joi.object().unknown().allow(null),
     uid: Joi.string().required(),
   }),
 ]);
