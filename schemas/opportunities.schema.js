@@ -62,4 +62,12 @@ module.exports = {
     jobs: jobListingDataSchema,
     scholarships: scholarshipDataSchema,
   }),
+  [`${config.devApiUrl}/opportunities/events`]: eventDataSchema,
+  [`${config.devApiUrl}/opportunities/jobs`]: jobListingDataSchema,
+  [`${config.devApiUrl}/opportunities/scholarships`]: scholarshipDataSchema,
+  [`${config.devApiUrl}/opportunities`]: Joi.object({
+    events: eventDataSchema,
+    jobs: jobListingDataSchema,
+    scholarships: scholarshipDataSchema,
+  }),
 };
