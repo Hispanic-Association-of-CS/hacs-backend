@@ -2,13 +2,14 @@
 
 const config = require("../config/config");
 const Joi = require("joi");
+const { imageSchema } = require("./schemaUtils");
 
 const eventDataSchema = Joi.object().pattern(/.*/, [
   Joi.object({
     title: Joi.string().required(),
     startTime: Joi.string().isoDate().allow(null),
     endTime: Joi.string().isoDate().allow(null),
-    imageUrl: Joi.string().allow(null),
+    image: imageSchema,
     meetingLink: Joi.string().allow(null),
     rsvpLink: Joi.string().allow(null),
     location: Joi.string().allow(null),
@@ -16,9 +17,11 @@ const eventDataSchema = Joi.object().pattern(/.*/, [
     otherLinks: Joi.object({
       flyerLink: Joi.string().allow(null),
       jobListing: Joi.string().allow(null),
-    }).unknown().allow(null),
+    })
+      .unknown()
+      .allow(null),
     uid: Joi.string().required(),
-  }),
+  }).unknown(),
 ]);
 
 const jobListingDataSchema = Joi.object().pattern(/.*/, [
@@ -28,12 +31,14 @@ const jobListingDataSchema = Joi.object().pattern(/.*/, [
       openDate: Joi.string().isoDate().allow(null),
       closeDate: Joi.string().isoDate().allow(null),
     }),
-    imgUrl: Joi.string().allow(null),
+    image: imageSchema,
     link: Joi.string().allow(null),
     description: Joi.string().allow(null),
     otherLinks: Joi.object({
       flyerLink: Joi.string().allow(null),
-    }).unknown().allow(null),
+    })
+      .unknown()
+      .allow(null),
     uid: Joi.string().required(),
   }),
 ]);
@@ -45,7 +50,7 @@ const scholarshipDataSchema = Joi.object().pattern(/.*/, [
       openDate: Joi.string().isoDate().allow(null),
       closeDate: Joi.string().isoDate().allow(null),
     }),
-    imgUrl: Joi.string().allow(null),
+    image: imageSchema,
     link: Joi.string().allow(null),
     description: Joi.string().allow(null),
     otherLinks: Joi.object().unknown().allow(null),
