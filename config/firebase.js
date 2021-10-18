@@ -23,11 +23,11 @@ devAdminConfig = {
   storageBucket: devFirebaseConfig.storageBucket,
 };
 
-prodFirebaseAdmin = firebaseAdmin.initializeApp(adminConfig, "prod");
+const prodFirebaseAdmin = firebaseAdmin.initializeApp(adminConfig);
 const adminDB = prodFirebaseAdmin.database();
 const adminStorage = prodFirebaseAdmin.storage();
 
-devFirebaseAdmin = firebaseAdmin.initializeApp(devAdminConfig, "dev");
+const devFirebaseAdmin = firebaseAdmin.initializeApp(devAdminConfig, "dev");
 const devAdminDB = devFirebaseAdmin.database();
 const devAdminStorage = devFirebaseAdmin.storage();
 
