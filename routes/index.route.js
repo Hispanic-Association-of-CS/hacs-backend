@@ -10,6 +10,7 @@ const loginRoutes = require("./login.route");
 const signoutRoutes = require("./signout.route");
 const opportunitiesRoutes = require("./opportunities.route");
 const { prodFirebaseAdmin, devFirebaseAdmin } = require("../config/firebase");
+const { corsRegex } = require("../config/config");
 
 const router = express.Router();
 
@@ -33,7 +34,9 @@ router.get("/", (req, res) => {
 });
 
 function handleAccessLevel(req, res, next) {
-  let prodAccess = req.get("origin") === "https://texashacs.org";
+  let prodAccess =
+    req.get("origin") === "https://texashacs.org" ||
+    new RegExp(corsRegex).test(req.get("origin"));
   res.locals.firebaseAdmin = prodAccess ? prodFirebaseAdmin : devFirebaseAdmin;
   next();
 }

@@ -11,7 +11,7 @@ function checkAuth(req, res, next) {
         next();
       })
       .catch((err) => {
-        res.status(403).send(err);
+        res.status(403).send("Unauthorized");
       });
   } else {
     res.status(403).send("No auth found!");
