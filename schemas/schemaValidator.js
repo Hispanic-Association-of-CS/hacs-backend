@@ -19,7 +19,8 @@ module.exports = (useJoiError = false) => {
 
   // return the validation middleware
   return (req, res, next) => {
-    const route = req.originalUrl;
+    // Replace dynamic route elements for schema check
+    const route = req.originalUrl.replace(/[a-z]+_[0-9 | a-z]+/, ":id");
     const method = req.method.toLowerCase();
     if (_.includes(_supportedMethods, method) && _.has(Schemas, route)) {
       // get schema for the current route

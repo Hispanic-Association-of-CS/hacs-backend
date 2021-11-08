@@ -1,24 +1,48 @@
 // routes.js - Central module for all routes
 
 const express = require("express");
-const { makeError, error404, handleRouteErrors } = require("../config/errors");
-const { CODES, RES } = require("../util/const");
+const asyncHandler = require("express-async-handler");
 
 const siteContentRoutes = require("./siteContent.route");
 const calendarRoutes = require("./calendar.route");
 const loginRoutes = require("./login.route");
 const signoutRoutes = require("./signout.route");
-const opportunitiesRoutes = require("./opportunities.route");
+const event = require("../event/event");
+const opportunitiesRoutes = require("./opportunities/opportunities.route");
 const { prodFirebaseAdmin, devFirebaseAdmin } = require("../config/firebase");
 const { corsRegex } = require("../config/config");
+const { checkAuth } = require("../auth/auth");
+const schemaValidator = require("../schemas/schemaValidator");
+const config = require("../config/config");
 
 const router = express.Router();
 
-router.use(/^\/(.*)/, handleAccessLevel);
+const validateRequest = schemaValidator(config.env === "dev");
+
+router.use(/\/(.*)/, handleAccessLevel);
+
+const asyncAll = (path, handler) => router.all(path, asyncHandler(handler));
+const asyncGet = (path, handler) => router.get(path, asyncHandler(handler));
+const asyncPost = (path, handler) =>
+  router.post(path, checkAuth, validateRequest, asyncHandler(handler));
+const asyncPut = (path, handler) =>
+  router.put(path, checkAuth, validateRequest, asyncHandler(handler));
+const asyncDelete = (path, handler) =>
+  router.delete(path, checkAuth, asyncHandler(handler));
+
 router.use("/siteContent", siteContentRoutes);
 router.use("/calendar", calendarRoutes);
 router.use("/login", loginRoutes);
 router.use("/signout", signoutRoutes);
+
+// events
+asyncGet("/events", event.list);
+// asyncAll("/event/:id/:op?", event.load);
+asyncPost("/event", event.create);
+asyncGet("/event/:id", event.get);
+asyncPut("/event/:id", event.update);
+asyncDelete("/event/:id", event.delete);
+
 router.use("/opportunities", opportunitiesRoutes);
 
 router.get("/health-check", (req, res) => {

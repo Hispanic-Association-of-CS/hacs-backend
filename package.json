@@ -24,7 +24,8 @@
     "joi": "^17.4.2",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
-    "set-interval-async": "1.0.34"
+    "set-interval-async": "1.0.34",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "got": "^11.8.2",

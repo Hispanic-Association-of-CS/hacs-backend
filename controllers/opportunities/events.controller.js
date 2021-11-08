@@ -13,6 +13,8 @@ module.exports = router;
 
 const validateRequest = SchemaValidator(config.env === "dev");
 
+router.use("/events", eventsRoutes);
+
 router.get("/", asyncHandler(getOpportunitiesData));
 router.post(
   "/",
@@ -40,7 +42,7 @@ router.post(
   asyncHandler(insertOpportunitiesData)
 );
 
-async function getOpportunitiesData(req, res, next) {
+async function getEventssData(req, res, next) {
   try {
     let opportunitiesData = await opportunitiesCtrl.read(
       req.route.path,

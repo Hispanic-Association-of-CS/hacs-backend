@@ -2,27 +2,11 @@
 
 const config = require("../config/config");
 const Joi = require("joi");
-const { imageSchema } = require("./schemaUtils");
-
-const eventDataSchema = Joi.object().pattern(/.*/, [
-  Joi.object({
-    title: Joi.string().required(),
-    startTime: Joi.string().isoDate().allow(null),
-    endTime: Joi.string().isoDate().allow(null),
-    image: imageSchema,
-    meetingLink: Joi.string().allow(null),
-    rsvpLink: Joi.string().allow(null),
-    location: Joi.string().allow(null),
-    description: Joi.string().allow(null),
-    otherLinks: Joi.object({
-      flyerLink: Joi.string().allow(null),
-      jobListing: Joi.string().allow(null),
-    })
-      .unknown()
-      .allow(null),
-    uid: Joi.string().required(),
-  }).unknown(),
-]);
+const { imageSchema } = require("./image.schema");
+const {
+  allEventSchemas,
+  eventsDataSchema,
+} = require("../event/event.schema");
 
 const jobListingDataSchema = Joi.object().pattern(/.*/, [
   Joi.object({
@@ -39,7 +23,6 @@ const jobListingDataSchema = Joi.object().pattern(/.*/, [
     })
       .unknown()
       .allow(null),
-    uid: Joi.string().required(),
   }),
 ]);
 
@@ -54,24 +37,22 @@ const scholarshipDataSchema = Joi.object().pattern(/.*/, [
     link: Joi.string().allow(null),
     description: Joi.string().allow(null),
     otherLinks: Joi.object().unknown().allow(null),
-    uid: Joi.string().required(),
   }),
 ]);
 
 module.exports = {
-  [`${config.apiUrl}/opportunities/events`]: eventDataSchema,
+  ...allEventSchemas,
   [`${config.apiUrl}/opportunities/jobs`]: jobListingDataSchema,
   [`${config.apiUrl}/opportunities/scholarships`]: scholarshipDataSchema,
   [`${config.apiUrl}/opportunities`]: Joi.object({
-    events: eventDataSchema,
+    events: eventsDataSchema,
     jobs: jobListingDataSchema,
     scholarships: scholarshipDataSchema,
   }),
-  [`${config.devApiUrl}/opportunities/events`]: eventDataSchema,
   [`${config.devApiUrl}/opportunities/jobs`]: jobListingDataSchema,
   [`${config.devApiUrl}/opportunities/scholarships`]: scholarshipDataSchema,
   [`${config.devApiUrl}/opportunities`]: Joi.object({
-    events: eventDataSchema,
+    events: eventsDataSchema,
     jobs: jobListingDataSchema,
     scholarships: scholarshipDataSchema,
   }),
