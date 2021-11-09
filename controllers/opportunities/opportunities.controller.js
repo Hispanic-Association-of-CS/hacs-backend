@@ -1,8 +1,8 @@
 // opportunities.controller.js - Opportunities logic module
 
 // const model = require("../models/opportunities.model");
-const { makeError } = require("../config/errors");
-const { isEmpty } = require("../util/util");
+const { makeError } = require("../../config/errors");
+const { isEmpty } = require("../../util/util");
 
 module.exports = {
   read,
