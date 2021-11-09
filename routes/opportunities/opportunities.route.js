@@ -2,7 +2,6 @@
 
 const express = require("express");
 const asyncHandler = require("express-async-handler");
-const eventsRoutes = require("./events.route")
 const opportunitiesCtrl = require("../../controllers/opportunities/opportunities.controller");
 const config = require("../../config/config");
 const { CODES, RES } = require("../../util/const");
@@ -14,8 +13,6 @@ module.exports = router;
 
 const validateRequest = SchemaValidator(config.env === "dev");
 
-router.use("/events", eventsRoutes);
-
 router.get("/", asyncHandler(getOpportunitiesData));
 router.post(
   "/",
@@ -25,19 +22,7 @@ router.post(
 );
 
 router.post(
-  "/events",
-  validateRequest,
-  checkAuth,
-  asyncHandler(insertOpportunitiesData)
-);
-router.post(
   "/jobs",
-  validateRequest,
-  checkAuth,
-  asyncHandler(insertOpportunitiesData)
-);
-router.post(
-  "/scholarships",
   validateRequest,
   checkAuth,
   asyncHandler(insertOpportunitiesData)

@@ -8,6 +8,7 @@ const calendarRoutes = require("./calendar.route");
 const loginRoutes = require("./login.route");
 const signoutRoutes = require("./signout.route");
 const event = require("../event/event");
+const scholarship = require("../scholarship/scholarship");
 const opportunitiesRoutes = require("./opportunities/opportunities.route");
 const { prodFirebaseAdmin, devFirebaseAdmin } = require("../config/firebase");
 const { corsRegex } = require("../config/config");
@@ -42,6 +43,14 @@ asyncPost("/event", event.create);
 asyncGet("/event/:id", event.get);
 asyncPut("/event/:id", event.update);
 asyncDelete("/event/:id", event.delete);
+
+// scholarships
+asyncGet("/scholarships", scholarship.list);
+// asyncAll("/scholarships/:id/:op?", scholarship.load);
+asyncPost("/scholarship", scholarship.create);
+asyncGet("/scholarship/:id", scholarship.get);
+asyncPut("/scholarship/:id", scholarship.update);
+asyncDelete("/scholarship/:id", scholarship.delete);
 
 router.use("/opportunities", opportunitiesRoutes);
 

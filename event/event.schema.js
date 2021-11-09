@@ -17,7 +17,8 @@ const eventDataSchema = Joi.object({
   })
     .unknown()
     .allow(null),
-}).unknown();
+  uid: Joi.string().regex(/[a-z]+_[a-z | 0-9]+/),
+});
 
 const eventsDataSchema = Joi.object().pattern(/.*/, [eventDataSchema]);
 
