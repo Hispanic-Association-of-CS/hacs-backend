@@ -21,13 +21,6 @@ router.post(
   asyncHandler(insertOpportunitiesData)
 );
 
-router.post(
-  "/jobs",
-  validateRequest,
-  checkAuth,
-  asyncHandler(insertOpportunitiesData)
-);
-
 async function getOpportunitiesData(req, res, next) {
   try {
     let opportunitiesData = await opportunitiesCtrl.read(
