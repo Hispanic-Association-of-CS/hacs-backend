@@ -6,6 +6,7 @@ client.scopes = ["https://www.googleapis.com/auth/calendar"];
 
 const calendars = {
   HACS: "texashacs@gmail.com",
+  Potential: "iui9mjasg30rdihuot7um6fad8@group.calendar.google.com",
   Test: "8fcdqv67fu39spbejs2kdf7qjg@group.calendar.google.com",
 };
 
@@ -20,7 +21,11 @@ const calendarRequest = async (options) => {
   return client
     .request(requestOptions)
     .then((res) => res.data.id)
-    .catch((e) => console.log("Had trouble with calendar connection."));
+    .catch((e) => {
+      if (e.code == 409) {
+        return e.code;
+      }
+    });
 };
 
 const calendarApiEndpoint = (calendar, id) => {
@@ -38,7 +43,7 @@ const gCalId = (id) => {
 
 const gCalEvent = (event) => {
   const description =
-    `<p>${event.description}</p>` +
+    `<p>${event.description ?? "TBD"}</p>` +
     `${event.rsvpLink ? `<a href="${event.rsvpLink}">RSVP HERE</a>` : ""}`;
   return {
     id: gCalId(event.uid),

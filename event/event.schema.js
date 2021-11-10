@@ -18,6 +18,10 @@ const eventDataSchema = Joi.object({
   })
     .unknown()
     .allow(null),
+  gCal: Joi.object({
+    confirmed: Joi.bool().default(false),
+    potential: Joi.bool().default(false),
+  }).allow(null),
   uid: Joi.string().regex(idRegExp),
 });
 
