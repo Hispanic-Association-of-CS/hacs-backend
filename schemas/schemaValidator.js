@@ -5,6 +5,7 @@ const Schemas = require("./index.schema");
 const { CODES } = require("../util/const");
 const { makeError } = require("../config/errors");
 const { env } = require("../config/config");
+const { idRegExp } = require("../util/id");
 
 module.exports = (useJoiError = false) => {
   // enabled HTTP methods for request data validation
@@ -20,7 +21,7 @@ module.exports = (useJoiError = false) => {
   // return the validation middleware
   return (req, res, next) => {
     // Replace dynamic route elements for schema check
-    const route = req.originalUrl.replace(/[a-z]+_[0-9 | a-z]+/, ":id");
+    const route = req.originalUrl.replace(idRegExp, ":id");
     const method = req.method.toLowerCase();
     if (_.includes(_supportedMethods, method) && _.has(Schemas, route)) {
       // get schema for the current route

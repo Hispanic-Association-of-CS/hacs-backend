@@ -1,55 +1,64 @@
-const { calendarRequest, calendars } = require("../config/gcp-calendar");
+const {
+  calendarRequest,
+  gCalId,
+  gCalEvent,
+  calendars,
+} = require("../config/gcp-calendar");
 
 // For HTTPS requests, refer to https://github.com/googleapis/gaxios for request options
 
 // Format body with event api https://developers.google.com/calendar/api/v3/reference/events
 
-async function addEvent(requestBody) {
-  sampleRequestBody = {
-    summary: "HACS Fall Kickoff",
-    start: {
-      dateTime: "2021-09-01T00:00:00.000Z",
-    },
-    end: {
-      dateTime: "2021-09-01T01:30:00.000Z",
-    },
-    attachments: [],
-    description:
-      "You don't have to be a CS major or Hispanic to be part of HACS! Anyone that has an interest in diversity and tech is welcome.\n\nThis event will take place at the Gates Dell Complex (CS building) in room GDC 1.304",
-    location: "GDC 1.3044",
-    organizer: {
-      email: "personal-gmail@gmail.com",
-      displayName: "John Doe",
-      self: true,
-    },
-  };
-
-  const addEventRequestOptions = {
-    method: "POST",
-    data: { ...requestBody },
-  };
-
-  return calendarRequest(calendars.Test, addEventRequestOptions);
-}
-
-async function removeEvent(event) {
-  removeEventRequestOptions = {};
-  calendarRequest(calendars.Test, requestOptions);
-}
-
-async function updateEvent(event) {
-  updateEventRequestOptions = {};
-  calendarRequest(calendars.Test, requestOptions);
-}
-
 async function getAllEvents() {
-  events = await calendarRequest(calendars.Test);
-  console.log(events);
+  const requestOptions = {
+    method: "GET",
+    calendar: calendars.Test,
+  };
+  return calendarRequest(requestOptions);
+}
+
+async function getEvent(id) {
+  const requestOptions = {
+    method: "GET",
+    id: gCalId(id),
+    calendar: calendars.Test,
+  };
+  return calendarRequest(requestOptions);
+}
+
+async function addEvent(event) {
+  const requestOptions = {
+    method: "POST",
+    data: gCalEvent(event),
+    calendar: calendars.Test,
+  };
+
+  return calendarRequest(requestOptions);
+}
+
+async function removeEvent(id) {
+  const requestOptions = {
+    method: "DELETE",
+    id: gCalId(id),
+    calendar: calendars.Test,
+  };
+  return calendarRequest(requestOptions);
+}
+
+async function updateEvent(id, event) {
+  const requestOptions = {
+    method: "PUT",
+    id: gCalId(id),
+    data: gCalEvent(event),
+    calendar: calendars.Test,
+  };
+  return calendarRequest(requestOptions);
 }
 
 module.exports = {
+  getAllEvents,
+  getEvent,
   addEvent,
   removeEvent,
   updateEvent,
-  getAllEvents,
 };

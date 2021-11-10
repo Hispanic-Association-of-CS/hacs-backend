@@ -4,6 +4,7 @@ const { uid } = require("../util/uid");
 // const model = require("../models/opportunities.model");
 const { makeError } = require("../config/errors");
 const { isEmpty } = require("../util/util");
+const GCal = require("../integrations/googleapi.calendar");
 
 exports.getAll = async (path, firebaseAdmin) =>
   firebaseAdmin.adminDB
@@ -20,20 +21,25 @@ exports.get = async (path, id, firebaseAdmin) =>
 exports.create = async (path, body, firebaseAdmin) => {
   const id = "event_" + uid().split("-").join("");
   body = { ...body, uid: id };
+  GCal.addEvent(body)
   return firebaseAdmin.adminDB
     .ref(`events/${id}`)
     .set(body)
-    .then(() => body);;
+    .then(() => body);
 };
 
-exports.update = async (path, id, body, firebaseAdmin) =>
-  firebaseAdmin.adminDB
+exports.update = async (path, id, body, firebaseAdmin) => {
+  GCal.updateEvent(id, body)
+  return firebaseAdmin.adminDB
     .ref(`events/${id}`)
     .set(body)
     .then(() => body);
+};
 
-exports.delete = async (path, id, firebaseAdmin) =>
-  firebaseAdmin.adminDB.ref(`events/${id}`).remove();
+exports.delete = async (path, id, firebaseAdmin) => {
+  GCal.removeEvent(id)
+  return firebaseAdmin.adminDB.ref(`events/${id}`).remove();
+};
 
 const extractSnapshotData = (snapshot) => {
   data = snapshot.val();
