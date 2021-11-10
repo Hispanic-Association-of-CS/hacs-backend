@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const config = require("../config/config");
 const { imageSchema } = require("../schemas/image.schema");
+const { idRegExp } = require("../util/id");
 
 const scholarshipDataSchema = Joi.object({
   title: Joi.string().required(),
@@ -16,7 +17,7 @@ const scholarshipDataSchema = Joi.object({
   })
     .unknown()
     .allow(null),
-  uid: Joi.string().regex(/[a-z]+_[a-z | 0-9]+/),
+  uid: Joi.string().regex(idRegExp),
 });
 
 const scholarshipsDataSchema = Joi.object().pattern(/.*/, [
