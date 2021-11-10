@@ -47,6 +47,14 @@ const envVarsSchema = Joi.object({
   DEV_FIREBASE_STORAGE_BUCKET: Joi.string()
     .required()
     .description("Access to our firebase dev storage bucket"),
+  // GCP
+  GCP_PRIVATE_KEY: Joi.string()
+    .required()
+    .description("GCP Service Account Private Key"),
+  GCP_CLIENT_EMAIL: Joi.string()
+    .required()
+    .description("GCP Service Account Email"),
+  // CORS
   CORS_REGEX: Joi.string()
     .required()
     .description("Enables CORS for firebase preview and hosting channels"),
@@ -84,6 +92,10 @@ const config = {
     },
     databaseURL: envVars.DEV_FIREBASE_DATABASE_URL,
     storageBucket: envVars.DEV_FIREBASE_STORAGE_BUCKET,
+  },
+  GCP: {
+    private_key: envVars.GCP_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    client_email: envVars.GCP_CLIENT_EMAIL,
   },
   corsRegex: envVars.CORS_REGEX,
   corsDevRegex: envVars.CORS_DEV_REGEX,

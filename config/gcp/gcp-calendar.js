@@ -1,7 +1,8 @@
 const { GoogleAuth } = require("google-auth-library");
+const GCPConfig = require("../config").GCP;
+const { private_key, client_email } = GCPConfig;
+const client = new GoogleAuth({ credentials: { client_email, private_key } });
 
-const serviceAccountCredentials = require("../.secrets/hacs-gcp-service-account-credentials.json");
-const client = new GoogleAuth().fromJSON(serviceAccountCredentials);
 client.scopes = ["https://www.googleapis.com/auth/calendar"];
 
 const calendars = {

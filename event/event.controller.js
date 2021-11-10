@@ -4,7 +4,7 @@ const { uid } = require("../util/uid");
 // const model = require("../models/opportunities.model");
 const { makeError } = require("../config/errors");
 const { isEmpty } = require("../util/util");
-const GCal = require("../integrations/googleapi.calendar");
+const GCal = require("../integrations/gcp/googleapi.calendar");
 
 exports.getAll = async (path, firebaseAdmin) =>
   firebaseAdmin.adminDB

@@ -4,8 +4,8 @@ const {
   gCalId,
   gCalEvent,
   calendars,
-} = require("../config/gcp-calendar");
-const { isEmpty } = require("../util/util");
+} = require("../../config/gcp/gcp-calendar");
+const { isEmpty } = require("../../util/util");
 
 const CALENDAR_MAPPING = {
   confirmed: calendars.HACS,
