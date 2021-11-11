@@ -18,9 +18,6 @@ const { CODES, RES } = require("../util/const");
 
 const app = express();
 
-// Set logger to dev mode
-app.use(logger);
-
 // Enable CORS - Cross Origin Resource Sharing
 var allowlist = [
   "https://texashacs.org",
@@ -32,6 +29,10 @@ var corsOptions = {
   origin: allowlist,
 };
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions))
+
+// Set logger to dev mode
+app.use(logger);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
