@@ -43,7 +43,6 @@ module.exports = {
 
 // Retrieve iframe URL for gCal
 async function read(agenda) {
-  console.log(agenda ? iframeMobileUrl : iframeUrl);
   return await axios.get(agenda ? iframeMobileUrl : iframeUrl).then((res) => {
     const $ = cheerio.load(res.data);
     $("head").append(styles);

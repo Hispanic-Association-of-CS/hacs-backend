@@ -1,4 +1,3 @@
-const _ = require("lodash");
 const {
   calendarRequest,
   gCalId,
@@ -33,7 +32,7 @@ async function safeUpdateEvent(event, firebaseAdmin, options) {
     .catch(() => DEFAULT_STATES);
 
   Object.keys(currStates).forEach((state) => {
-    currState = currStates[state];
+    const currState = currStates[state];
     if (currState === prevStates[state]) {
       // Same state, updating calendar event
       return currState ? updateEvent(event, assignCalendar(state)) : null;
@@ -71,7 +70,7 @@ async function addEvent(event, calendar) {
     calendar,
   };
   return calendarRequest(requestOptions).then((code) => {
-    if (code == 409) {
+    if (code === 409) {
       return updateEvent(event, calendar);
     }
   });

@@ -3,8 +3,6 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const signoutCtrl = require("../controllers/signout.controller");
-const config = require("../config/config");
-const { CODES, RES } = require("../util/const");
 
 const router = express.Router();
 module.exports = router;

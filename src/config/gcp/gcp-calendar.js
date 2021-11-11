@@ -12,10 +12,10 @@ const calendars = {
 };
 
 const calendarRequest = async (options) => {
-  method = options["method"] ? options["method"] : "GET";
-  id = options["id"] ? options["id"] : null;
-  data = options["data"] ? options["data"] : null;
-  calendar = options["calendar"] ? options["calendar"] : calendars.HACS;
+  const method = options["method"] ? options["method"] : "GET";
+  const id = options["id"] ? options["id"] : null;
+  const data = options["data"] ? options["data"] : null;
+  const calendar = options["calendar"] ? options["calendar"] : calendars.HACS;
 
   const url = calendarApiEndpoint(calendar, id);
   const requestOptions = { url, method, data };
@@ -23,7 +23,7 @@ const calendarRequest = async (options) => {
     .request(requestOptions)
     .then((res) => res.data.id)
     .catch((e) => {
-      if (e.code == 409) {
+      if (e.code === 409) {
         return e.code;
       }
     });

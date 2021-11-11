@@ -26,7 +26,7 @@ function handleRouteErrors(error, req, res, next) {
     .status(error.status || 500)
     .json({ error: { message: error.message, status: error.status } });
 
-  if (config.env == "dev") {
+  if (config.env === "dev") {
     next(error);
   }
 }

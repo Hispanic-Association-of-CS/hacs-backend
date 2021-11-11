@@ -37,9 +37,9 @@ router.use("/calendar", calendarRoutes);
 router.use("/login", loginRoutes);
 router.use("/signout", signoutRoutes);
 
-///
-/// events
-///
+//
+// events
+//
 asyncGet("/events", event.list);
 // asyncAll("/event/:id/:op?", event.load);
 asyncPost("/event", event.create);
@@ -47,9 +47,9 @@ asyncGet("/event/:id", event.get);
 asyncPut("/event/:id", event.update);
 asyncDelete("/event/:id", event.delete);
 
-///
-/// jobs
-///
+//
+// jobs
+//
 asyncGet("/jobs", job.list);
 // asyncAll("/job/:id/:op?", job.load);
 asyncPost("/job", job.create);
@@ -57,9 +57,9 @@ asyncGet("/job/:id", job.get);
 asyncPut("/job/:id", job.update);
 asyncDelete("/job/:id", job.delete);
 
-///
-/// scholarships
-///
+//
+// scholarships
+//
 asyncGet("/scholarships", scholarship.list);
 // asyncAll("/scholarships/:id/:op?", scholarship.load);
 asyncPost("/scholarship", scholarship.create);
@@ -82,7 +82,11 @@ router.get("/", (req, res) => {
 });
 
 function handleAccessLevel(req, res, next) {
+  let localProdAccess =
+    req.get("origin") === "http://localhost:3000" &&
+    req.baseUrl.split("/")[1] === "api";
   let prodAccess =
+    localProdAccess ||
     req.get("origin") === "https://texashacs.org" ||
     new RegExp(corsRegex).test(req.get("origin"));
   res.locals.firebaseAdmin = prodAccess ? prodFirebaseAdmin : devFirebaseAdmin;

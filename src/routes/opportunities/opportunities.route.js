@@ -4,7 +4,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const opportunitiesCtrl = require("../../controllers/opportunities/opportunities.controller");
 const config = require("../../config/config");
-const { CODES, RES } = require("../../util/const");
+const { CODES } = require("../../util/const");
 const SchemaValidator = require("../../schemas/schemaValidator");
 const { checkAuth } = require("../../auth/auth");
 

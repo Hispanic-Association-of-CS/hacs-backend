@@ -23,7 +23,7 @@ exports.create = async (path, body, firebaseAdmin) => {
   return firebaseAdmin.adminDB
     .ref(`jobs/${id}`)
     .set(body)
-    .then(() => body);;
+    .then(() => body);
 };
 
 exports.update = async (path, id, body, firebaseAdmin) =>
@@ -36,7 +36,7 @@ exports.delete = async (path, id, firebaseAdmin) =>
   firebaseAdmin.adminDB.ref(`jobs/${id}`).remove();
 
 const extractSnapshotData = (snapshot) => {
-  data = snapshot.val();
+  const data = snapshot.val();
   if (isEmpty(data)) {
     throw makeError("Bad Request: The server returned no data.", 400);
   }

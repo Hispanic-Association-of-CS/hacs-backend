@@ -36,7 +36,7 @@ exports.delete = async (path, id, firebaseAdmin) =>
   firebaseAdmin.adminDB.ref(`scholarships/${id}`).remove();
 
 const extractSnapshotData = (snapshot) => {
-  data = snapshot.val();
+  const data = snapshot.val();
   if (isEmpty(data)) {
     throw makeError("Bad Request: The server returned no data.", 400);
   }

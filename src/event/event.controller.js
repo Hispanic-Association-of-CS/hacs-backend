@@ -43,7 +43,7 @@ exports.delete = async (path, id, firebaseAdmin) =>
   );
 
 const extractSnapshotData = (snapshot) => {
-  data = snapshot.val();
+  const data = snapshot.val();
   if (isEmpty(data)) {
     throw makeError("Bad Request: The server returned no data.", 400);
   }

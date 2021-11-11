@@ -5,19 +5,19 @@ const firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/database");
 
-firebaseConfig = config.firebase;
-devFirebaseConfig = config.firebaseDev;
+const firebaseConfig = config.firebase;
+const devFirebaseConfig = config.firebaseDev;
 
 // admin config
 const firebaseAdmin = require("firebase-admin");
 
-adminConfig = {
+const adminConfig = {
   credential: firebaseAdmin.credential.cert(firebaseConfig.credential),
   databaseURL: firebaseConfig.databaseURL,
   storageBucket: firebaseConfig.storageBucket,
 };
 
-devAdminConfig = {
+const devAdminConfig = {
   credential: firebaseAdmin.credential.cert(devFirebaseConfig.credential),
   databaseURL: devFirebaseConfig.databaseURL,
   storageBucket: devFirebaseConfig.storageBucket,

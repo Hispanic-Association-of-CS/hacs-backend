@@ -1,6 +1,7 @@
 // login.controller.js - Login logic module
 
-const { firebase } = require("../config/firebase");
+const { firebase, firebaseAuthWrap } = require("../config/firebase");
+const { onLogin } = require("./login.controller");
 
 module.exports = {
   signout,

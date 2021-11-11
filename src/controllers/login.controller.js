@@ -5,6 +5,7 @@ const { firebase, firebaseAuthWrap } = require("../config/firebase");
 
 module.exports = {
   login,
+  onLogin,
 };
 
 async function login(authorization) {
@@ -20,7 +21,7 @@ async function login(authorization) {
   );
 
   return {
-    token: onLogin(user)
+    token: onLogin(user),
   };
 }
 
@@ -31,5 +32,5 @@ function onLogin(user) {
 }
 
 function storeUserToken(token) {
-  throw new ValidationError;
+  throw new ValidationError();
 }

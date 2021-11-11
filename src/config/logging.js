@@ -1,10 +1,10 @@
 const config = require("./config");
 const morgan = require("morgan");
 const chalk = require("chalk");
-const { CODES, RES } = require("../util/const");
+const { CODES } = require("../util/const");
 const { objContainsVal } = require("../util/util");
 
-// Simple logging structure for production:
+// Simple logging structure for prod:
 // <method> <url> <status> <res[content-length]> - <response-time> ms
 const prodLogger = morgan("tiny");
 
@@ -29,7 +29,7 @@ const devLogger = morgan(function (tokens, req, res) {
 });
 
 // Return logger for current environment
-logger = config.env === "dev" ? devLogger : prodLogger;
+const logger = config.env === "dev" ? devLogger : prodLogger;
 
 module.exports = { logger };
 
