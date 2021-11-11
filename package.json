@@ -3,18 +3,31 @@
   "version": "0.3.0",
   "description": "A Node.js backend for the website of the Hispanic Association of Computer Scientists (HACS)",
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "node test.js",
-    "heroku-postbuild": "npm run build"
+    "start": "npm run prod",
+    "dev": "NODE_ENV=dev npm run lint && nodemon --exec \"npm run devserver\"",
+    "build": "npm-run-all clean transpile",
+    "prod": "NODE_ENV=prod npm-run-all build server",
+    "fix": "nodemon --exec \"npm run lint\"",
+    "server": "node ./deploy/src/server",
+    "devserver": "node ./src/server",
+    "clean": "rimraf ./deploy",
+    "transpile": "babel ./src --out-dir ./deploy/src",
+    "lint": "eslint -c ./settings/.eslintrc --fix --ignore-path .gitignore .",
+    "lint-deploy": "eslint -c ./settings/deploy.eslintrc ./deploy",
+    "replace_this": "NODE_ENV=dev npm run build && nodemon --exec \"npm run server\""
   },
   "dependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.10",
+    "core-js": "^3.19.1",
     "cors": "^2.8.5",
     "dotenv": "^8.6.0",
     "express": "^4.15.2",
@@ -27,21 +40,26 @@
     "joi": "^17.4.2",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
+    "npm-run-all": "^4.1.5",
+    "regenerator-runtime": "^0.13.9",
+    "rimraf": "^3.0.2",
     "set-interval-async": "1.0.34",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/node": "^7.16.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "got": "^11.8.2",
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.4.1",
     "tape": "^4.14.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
-  },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+  "optionalDependencies": {
+    "win-node-env": "^0.4.0"
+  }
 }

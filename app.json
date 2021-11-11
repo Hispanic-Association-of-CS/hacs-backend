@@ -1,8 +1,8 @@
 {
-  "name": "Start on Heroku: Node.js",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-getting-started",
-  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
+  "name": "HACS Server",
+  "description": "Server and API for texashacs.org",
+  "repository": "https://github.com/texas-HACS/hacs-backend",
+  "logo": "https://firebasestorage.googleapis.com/v0/b/hacs-opensource.appspot.com/o/hacs_logo.png?alt=media&token=993e859b-5ae1-47c3-9f51-cf414d833a2c",
   "keywords": ["node", "express", "heroku"],
   "image": "heroku/nodejs"
 }

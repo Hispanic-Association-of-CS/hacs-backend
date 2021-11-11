@@ -1,0 +1,13 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        // Tells babel the runtime to eliminate async/await errors
+        "targets": {
+          "node": "14"
+        }
+      }
+    ]
+  ]
+}
